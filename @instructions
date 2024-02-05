@@ -1,0 +1,4 @@
+//RENDER->getRoutes()->myFile.template
+INSERT->print("Hello World")->testing.txt
+INSERT->print("Bye World)->testing.txt
+// GENERATE->dynamic.py->data.txt - O Generate não pode citar o mesmo arquivo. E caso ele use um arquivo já existente, ele será sobrescrito.

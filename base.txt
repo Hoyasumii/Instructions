@@ -1,0 +1,12 @@
+RENDER->getRoutes()->index.ts.template
+DISPLAY->"The {{ routeName }} route was created successfully!"
+DISPLAY_ERROR->"The {{ routeName }} route already exists!"
+INSERT->print("Hello World")->script.py
+
+[
+  [
+    RENDER,
+    getRoutes(),
+    index.ts.template
+  ]
+]

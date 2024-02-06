@@ -10,3 +10,13 @@ def get_commands() -> dict:
 
 if __name__=="__main__":
   print(get_commands())
+  """
+  
+  insert: [
+  {
+  send: aaaa
+  to: jknajkndsa
+  }
+  ]
+  
+  """

@@ -1,6 +1,7 @@
 import os
 from Instructions.utils import get_commands
 
+
 def base(path: str, commands: dict = get_commands()):
 
   assert isinstance(path, str), "Path must be a string"

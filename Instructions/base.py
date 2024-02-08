@@ -22,12 +22,6 @@ def base(path: str, commands: dict = get_commands()):
           "send": item[1],
           "to": item[2]
         })
-      # for item in instructions:
-      #   if not item.startswith('//'):
-      #     print(item)
-      #     pass
-          # commands[]
-      # doc = [item[:-1].split('->') for item in file.readlines() if not item.startswith('//') ]
 
       return commands
   

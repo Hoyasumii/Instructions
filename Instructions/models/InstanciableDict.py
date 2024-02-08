@@ -1,5 +1,3 @@
-from typing import Any
-
 class InstanciableDict:
   def __init__(self, **kwargs):
     for key, value in kwargs.items():

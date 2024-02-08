@@ -1,9 +1,12 @@
 import sys, os
 
+
+sys.path.append(os.getcwd())
 if __name__=="__main__":
   from path_resolve import path_resolve
-  sys.path.append(os.getcwd())
-  sys.path.append(path_resolve())
+else:
+  from Instructions.utils.path_resolve import path_resolve
+sys.path.append(path_resolve())
 
 from Instructions.utils import list_args, path_resolve
 from Instructions.models import ArgsList

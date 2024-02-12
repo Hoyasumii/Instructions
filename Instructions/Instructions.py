@@ -1,4 +1,4 @@
-import os, sys
+import os
 
 if __name__=="__main__":
 	from utils import get_commands, list_args, load_command

@@ -19,3 +19,6 @@ def list_args(command_name: str, path: str = os.path.dirname(__file__)) -> dict:
 if __name__=="__main__":
 	current_path = "\\".join(os.path.dirname(__file__).split("\\")[:-1])
 	current_path += "\\commands"
+
+	x = list_args("insert", current_path)
+	print(x['send'])

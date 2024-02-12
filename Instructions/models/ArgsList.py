@@ -1,3 +1,6 @@
+import inspect
+
+
 if __name__=="__main__":
 	from InstanciableDict import InstanciableDict
 else:
@@ -27,6 +30,8 @@ class ArgsList:
 	def _casting(self, **kwargs) -> dict:
 		try:
 			for key, value in kwargs.items():
+				if self._pattern[key] == inspect._empty:
+					continue
 				kwargs[key] = self._pattern[key](value)
 		except ValueError:
 			raise ValueError(f"Value {value} is not castable to {self._pattern[key]}")

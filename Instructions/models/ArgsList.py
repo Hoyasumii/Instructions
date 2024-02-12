@@ -4,24 +4,33 @@ else:
 	from .InstanciableDict import InstanciableDict
 
 class ArgsList:
-	def __init__(self, **kwars):
-		self._pattern = { **kwars }
+	def __init__(self, **kwargs):
+		self._pattern = { **kwargs }
 		self._data = []
 
-	def append(self, **kwars):
-		self._validate(**kwars)
-		self._data.append({ **kwars })
+	def append(self, **kwargs):
+		self._validate(**kwargs)
+		casted_kwargs = self._casting(**kwargs)
+		self._data.append({ **casted_kwargs })
 
-	def _validate(self, **kwars):
+	def _validate(self, **kwargs):
 		
 		# The number of keys must be equal to the number of args
 		number_of_keys = len(self._pattern.keys())
-		number_of_args = len(kwars.keys())
+		number_of_args = len(kwargs.keys())
 		assert number_of_keys == number_of_args, f"The number of keys must be equal to the number of args. Expected {number_of_keys} but got {number_of_args}"
 
 		# The keys must be equal to the pattern
-		for key in kwars.keys():
+		for key in kwargs.keys():
 			assert key in self._pattern.keys(), f"Key {key} is not in the pattern"
+				
+	def _casting(self, **kwargs) -> dict:
+		try:
+			for key, value in kwargs.items():
+				kwargs[key] = self._pattern[key](value)
+		except ValueError:
+			raise ValueError(f"Value {value} is not castable to {self._pattern[key]}")
+		return kwargs
 
 	def __getitem__(self, index):
 		assert isinstance(index, int), "The index must be an integer"

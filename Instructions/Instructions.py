@@ -59,7 +59,7 @@ class Instructions:
 					except FileNotFoundError:
 
 						if ignore_if_not_found:
-							pass
+							continue
 						
 						raise FileNotFoundError(f"Command {item[0]} not found")
 

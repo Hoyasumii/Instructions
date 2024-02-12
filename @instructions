@@ -1,5 +1,9 @@
 //RENDER->getRoutes()->myFile.template
 INSERT->Oi Diego->testing.txt
 INSERT->Oi pessoas que estão assistindo->testing.txt
-//DISPLAY->KJASJNKDASKJNASJN
-// GENERATE->dynamic.py->data.txt - O Generate não pode citar o mesmo arquivo. E caso ele use um arquivo já existente, ele será sobrescrito.
+DISPLAY->KJASJNKDASKJNASJN
+DISPLAY->Hello World
+HELLO
+HELLO
+// GENERATE->dynamic(arg1, arg2, ...argN)->data.txt - O Generate não pode citar o mesmo arquivo. E caso ele use um arquivo já existente, ele será sobrescrito.
+// TODO: Fazer um modo com que o Instructions reconheça por padrão o pacote @scripts e caso não haja o __init__.py, ele cria com base nos arquivos existentes. Além disso, ele precisa carregar e chamar esses métodos já existentes com os argumentos que ele tem. Seguindo a sintaxe acima

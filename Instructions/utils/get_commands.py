@@ -1,25 +1,18 @@
-import sys, os
+import os, sys
 
+def get_commands(path: str = __file__, commands_folder: str = "commands", dir_name: bool = False):
 
-sys.path.append(os.getcwd())
-if __name__=="__main__":
-  from path_resolve import path_resolve
-else:
-  from Instructions.utils.path_resolve import path_resolve
-sys.path.append(path_resolve())
+	assert isinstance(path, str), "Path must be a string"
+	assert isinstance(commands_folder, str), "Commands folder must be a string"
 
-from Instructions.utils import list_args, path_resolve
-from Instructions.models import ArgsList
+	CORRECT_PATH = path if dir_name else os.path.dirname(path)
 
-INSTRUCTIONS_PATH = path_resolve()
-COMMANDS_PATH = None
-DESIRED_LAST_INDEX = -2
-COMMANDS_PATH = os.path.join(INSTRUCTIONS_PATH, "commands") if __name__=="__main__" else f"{INSTRUCTIONS_PATH}\\commands"
+	sys.path.append(CORRECT_PATH)
+	import utils.list_args as list_args
+	import models.ArgsList as ArgsList
 
-def get_commands() -> dict:
-  commands_files = os.listdir(COMMANDS_PATH)
-  commands_files = [ file[:-3] for file in commands_files if os.path.isfile(f"{COMMANDS_PATH}\\{file}") and file != "__init__.py"]
-  return { command: ArgsList(**list_args(command)) for command in commands_files }
+	COMMANDS_PATH = os.path.join((path if dir_name else os.path.dirname(path)), commands_folder)
 
-if __name__=="__main__":
-  print({key: value._pattern for key, value in get_commands().items()})
+	commands_files = [ command[:-3] for command in os.listdir(COMMANDS_PATH) if not command.startswith("_") and command.endswith(".py") ]
+
+	return { command: ArgsList(**list_args(command, COMMANDS_PATH)) for command in commands_files }

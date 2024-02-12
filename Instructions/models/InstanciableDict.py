@@ -1,7 +1,10 @@
 class InstanciableDict:
-  def __init__(self, **kwargs):
-    for key, value in kwargs.items():
-      setattr(self, key, value)
+	def __init__(self, **kwargs):
+		for key, value in kwargs.items():
+			setattr(self, key, value)
+
+	def __repr__(self):
+		return f"[ {", ".join([f"'{attr}'" for attr in dir(self) if not attr.startswith("__")])} ]"
 
 if __name__=='__main__':
   my_dict = { "name": "Alberto", "age": 20 }

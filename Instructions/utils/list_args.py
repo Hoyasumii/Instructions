@@ -1,20 +1,18 @@
-import inspect, importlib, os, pkgutil, sys
+import inspect, importlib.util, os
+
+def list_args(command_name: str, path: str = os.path.dirname(__file__)) -> dict:
+
+	assert isinstance(command_name, str), "The command must be a string"
+	assert isinstance(path, str), "Path must be a string"	
+
+	spec = importlib.util.spec_from_file_location(command_name, f"{path}\\{command_name}.py")
+	module = importlib.util.module_from_spec(spec)
+	spec.loader.exec_module(module)
+
+	return { key: None for key in inspect.signature(getattr(module, command_name)).parameters.keys() }
 
 if __name__=="__main__":
-  sys.path.append(os.getcwd())
-  sys.path.append(os.path.join(sys.path[0], "Instructions"))
+	current_path = "\\".join(os.path.dirname(__file__).split("\\")[:-1])
+	current_path += "\\commands"
 
-def list_args(commandName: str) -> dict:
-
-  assert isinstance(commandName, str), "The command must be a string"
-
-  # The module contains ONE command
-  commandModule = importlib.import_module(f"Instructions.commands.{commandName}") 
-
-  if getattr(commandModule, commandName):
-    return { key: None for key in inspect.signature(getattr(commandModule, commandName)).parameters.keys() }
-  
-  return {}
-
-if __name__=="__main__":
-  print(list_args("insert"))
+	print(list_args("insert", current_path))

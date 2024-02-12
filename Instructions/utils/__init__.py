@@ -1,3 +1,2 @@
-from .path_resolve import path_resolve
 from .list_args import list_args
 from .get_commands import get_commands

@@ -1,17 +1,5 @@
-import sys
-from Instructions import base
-from Instructions.utils import get_commands
-import inspect
+import sys, inspect
+from Instructions import Instructions
 
-# def say(text: str, data):
-#   print(text)
-
-# print(inspect.signature(say).parameters)
-
-print(base(sys.argv[1]))
-# print(base(sys.argv[1]))
-# print(get_commands())
-
-# print(base(sys.argv[1]))print("Hello World")
-
-#TODO: Tirar aqueles operadores ternários para criar condicionais mais inteligentes no get_commands.py
+if __name__=="__main__":
+  Instructions().run()

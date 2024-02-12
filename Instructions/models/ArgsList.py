@@ -27,7 +27,7 @@ class ArgsList:
 		assert isinstance(index, int), "The index must be an integer"
 
 		try:
-			return InstanciableDict(**self._data[index])
+			return self._data[index]
 		
 		except IndexError:
 			return None

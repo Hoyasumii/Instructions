@@ -1,9 +1,9 @@
 import os, sys
 
 if __name__=="__main__":
-	from utils import get_commands, list_args
+	from utils import get_commands, list_args, load_command
 else:
-	from Instructions.utils import get_commands, list_args
+	from Instructions.utils import get_commands, list_args, load_command
 
 class Instructions:
 
@@ -62,10 +62,16 @@ class Instructions:
 							pass
 						
 						raise FileNotFoundError(f"Command {item[0]} not found")
-			
 
 	def run(self):
-		print(self.commands)
+		for command, args in self.commands.items():
+			for arg in args:
+				if not arg:
+					break
+				try:
+					getattr(load_command(command, self.commands_path), command)(**arg)
+				except FileNotFoundError:
+					getattr(load_command(command, self.personal_commands_path), command)(**arg)
 
 	def __call__(self):
 		return self.run()

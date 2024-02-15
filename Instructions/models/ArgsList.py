@@ -10,6 +10,10 @@ class ArgsList:
 	def __init__(self, **kwargs):
 		self._pattern = { **kwargs }
 		self._data = []
+	
+	@property
+	def args_len(self) -> int:
+		return len(self._pattern.keys())
 
 	def append(self, **kwargs):
 		self._validate(**kwargs)

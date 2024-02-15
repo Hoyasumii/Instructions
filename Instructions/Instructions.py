@@ -69,9 +69,18 @@ class Instructions:
 						raise FileNotFoundError(f"Command {item[0]} not found")
 
 	def run(self):
+		print(self.commands.items())
 		for command, args in self.commands.items():
+
+			if args.args_len == 0:
+				try:
+					getattr(load_command(command, self.commands_path), command)()
+				except FileNotFoundError:
+					getattr(load_command(command, self.personal_commands_path), command)()
+				continue
+
 			for arg in args:
-				if not arg:
+				if not arg:		
 					break
 				try:
 					getattr(load_command(command, self.commands_path), command)(**arg)

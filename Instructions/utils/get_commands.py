@@ -1,18 +1,13 @@
-import os, sys
+import importlib.util, importlib
 
-def get_commands(path: str = __file__, commands_folder: str = "commands", dir_name: bool = False):
+if __name__=="__main__":
+    from get_commands_from_path import get_commands_from_path
+else:
+    from Instructions.utils import get_commands_from_path
 
-	assert isinstance(path, str), "Path must be a string"
-	assert isinstance(commands_folder, str), "Commands folder must be a string"
+def get_commands():
+    instructions_lib_path = importlib.util.find_spec("Instructions").origin
+    return get_commands_from_path(instructions_lib_path)
 
-	CORRECT_PATH = path if dir_name else os.path.dirname(path)
-
-	sys.path.append(CORRECT_PATH)
-	import utils.list_args as list_args
-	import models.ArgsList as ArgsList
-
-	COMMANDS_PATH = os.path.join((path if dir_name else os.path.dirname(path)), commands_folder)
-
-	commands_files = [ command[:-3] for command in os.listdir(COMMANDS_PATH) if not command.startswith("_") and command.endswith(".py") ]
-
-	return { command: ArgsList(**list_args(command, COMMANDS_PATH)) for command in commands_files }
+if __name__=="__main__":
+    print(get_commands())

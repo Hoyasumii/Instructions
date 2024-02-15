@@ -1,9 +1,9 @@
-import os
+import os, importlib.util
 
 if __name__=="__main__":
-	from utils import get_commands, list_args, load_command
+	from utils import get_commands_from_path, list_args, load_command
 else:
-	from Instructions.utils import get_commands, list_args, load_command
+	from Instructions.utils import get_commands, get_commands_from_path, list_args, load_command
 
 class Instructions:
 
@@ -16,8 +16,13 @@ class Instructions:
 			raise FileNotFoundError("Path not found")
 		
 		self._EXTENSIBLE_COMMANDS = True if os.path.exists(os.path.join(path, "@commands")) else False
-		
+				
 		self.commands_path = os.path.join(path, "Instructions\\commands")
+
+		if __name__!="__main__":
+			self.commands_path = importlib.util.find_spec("Instructions.commands").origin
+			self.commands_path = self.commands_path[:self.commands_path.rfind("\\")]
+
 		self.personal_commands_path = os.path.join(path, "@commands")
 
 		self.file_path = os.path.join(path, "@instructions")
@@ -25,10 +30,10 @@ class Instructions:
 		if not os.path.isfile(self.file_path):
 			raise FileNotFoundError("@instructions file not found")
 
-		self.commands = get_commands(__file__)
+		self.commands = get_commands()
 
 		if self._EXTENSIBLE_COMMANDS:
-			personal_commands = get_commands(__file__, self.personal_commands_path)
+			personal_commands = get_commands_from_path(__file__, self.personal_commands_path)
 
 		merged_commands = set(self.commands) & set(personal_commands)
 

@@ -1,9 +1,9 @@
 import os, importlib.util
 
 if __name__=="__main__":
-	from utils import get_commands_from_path, list_args, load_command
+	from utils import get_commands, get_commands_from_path, list_args, load_command, get_instructions
 else:
-	from Instructions.utils import get_commands, get_commands_from_path, list_args, load_command
+	from Instructions.utils import get_commands, get_commands_from_path, list_args, load_command, get_instructions
 
 class Instructions:
 
@@ -44,10 +44,7 @@ class Instructions:
 
 		with open(self.file_path, "r", encoding="utf-8") as file:
 
-			instructions = [ line[:(-1 if line.endswith("\n") else None)].split('->') for line in file.readlines() if not line.startswith('//') and line != '\n']
-
-			for arg in instructions:
-				arg[0] = arg[0].lower()
+			instructions = get_instructions(file)
 
 			for item in instructions:
 				try:
@@ -69,7 +66,6 @@ class Instructions:
 						raise FileNotFoundError(f"Command {item[0]} not found")
 
 	def run(self):
-		print(self.commands.items())
 		for command, args in self.commands.items():
 
 			if args.args_len == 0:

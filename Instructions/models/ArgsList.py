@@ -1,5 +1,5 @@
 import inspect
-
+from typing import Any
 
 if __name__=="__main__":
 	from InstanciableDict import InstanciableDict
@@ -15,12 +15,12 @@ class ArgsList:
 	def args_len(self) -> int:
 		return len(self._pattern.keys())
 
-	def append(self, **kwargs):
+	def append(self, **kwargs) -> None:
 		self._validate(**kwargs)
 		casted_kwargs = self._casting(**kwargs)
 		self._data.append({ **casted_kwargs })
 
-	def _validate(self, **kwargs):
+	def _validate(self, **kwargs) -> None:
 		
 		# The number of keys must be equal to the number of args
 		number_of_keys = len(self._pattern.keys())
@@ -41,7 +41,7 @@ class ArgsList:
 			raise ValueError(f"Value {value} is not castable to {self._pattern[key]}")
 		return kwargs
 
-	def __getitem__(self, index):
+	def __getitem__(self, index) -> Any:
 		assert isinstance(index, int), "The index must be an integer"
 
 		try:

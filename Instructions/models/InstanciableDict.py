@@ -2,6 +2,9 @@ class InstanciableDict:
 	def __init__(self, **kwargs):
 		for key, value in kwargs.items():
 			setattr(self, key, value)
+	
+	def __dir__(self):
+		return [attr for attr in dir(self) if not attr.startswith("__")]
 
 	def __repr__(self):
 		return f"[ {", ".join([f"'{attr}'" for attr in dir(self) if not attr.startswith("__")])} ]"

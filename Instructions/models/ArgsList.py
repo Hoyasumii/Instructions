@@ -1,11 +1,6 @@
 import inspect
 from typing import Any
 
-if __name__=="__main__":
-	from InstanciableDict import InstanciableDict
-else:
-	from .InstanciableDict import InstanciableDict
-
 class ArgsList:
 	def __init__(self, **kwargs):
 		self._pattern = { **kwargs }

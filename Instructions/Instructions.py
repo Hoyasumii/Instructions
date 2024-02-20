@@ -67,12 +67,13 @@ class Instructions:
 
 	def run(self):
 		for command, args in self.commands.items():
-
-			if args.args_len == 0:
+			if args.args_len == 0 and not args[0] is None:
 				try:
-					getattr(load_command(command, self.commands_path), command)()
+					for _ in range(len(args)):
+						getattr(load_command(command, self.commands_path), command)()
 				except FileNotFoundError:
-					getattr(load_command(command, self.personal_commands_path), command)()
+					for _ in range(len(args)):
+						getattr(load_command(command, self.personal_commands_path), command)()
 				continue
 
 			for arg in args:
